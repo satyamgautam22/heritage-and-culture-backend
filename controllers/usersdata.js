@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import ImageKit from "imagekit";
-import Media from "../models/Media.js"; // ✅ new model for DB storage
+import Media from "../models/media.js"; // ✅ new model for DB storage
 
 dotenv.config();
 
