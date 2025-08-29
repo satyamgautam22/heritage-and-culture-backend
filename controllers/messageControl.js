@@ -3,13 +3,8 @@ import openai from "../config/openai.js";
 import Chat from "../models/chat.js";
 import User from "../models/Users.js";
 import mongoose from "mongoose";
-import ImageKit from "imagekit";
 
-const imagekit = new ImageKit({
-  publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
-  privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
-  urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
-});
+
 
 // ---------------- TEXT MESSAGE -----------------
 export const textMessageController = async (req, res) => {
