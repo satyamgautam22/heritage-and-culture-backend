@@ -11,6 +11,10 @@ const projectSchema = new mongoose.Schema(
     description: {
       type: String,
      
+    },
+    imageUrl: {
+      type: String,
+      required: [true, "Image URL is required"]
     }
   },
   { timestamps: true }

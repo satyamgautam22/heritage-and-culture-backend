@@ -18,7 +18,7 @@ export const uploadImage = async (req, res) => {
 
     const uploadedImage = await imagekit.upload({
       file: file.buffer,
-      fileName: `${Date.now()}-${file.originalname}`,
+      fileName: `z`,
       folder: "images",
     });
 

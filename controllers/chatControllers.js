@@ -1,4 +1,4 @@
-import Chat from "../models/chat.js";
+import Chat from "../models/post.js";
 import mongoose from "mongoose";
 
 export const createChat = async(req, res)=>{

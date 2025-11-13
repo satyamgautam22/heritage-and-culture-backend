@@ -1,23 +1,18 @@
 import mongoose from 'mongoose';
 import Project from '../models/project.js';
 
-
 // Create project
 export const createProject = async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, description, imageUrl } = req.body;
 
-    const project = new Project({ title, description });
+    const project = new Project({ title, description, imageUrl });
     await project.save();
 
     return res.status(201).json({ message: 'Project created', project });
   } catch (err) {
-    
-      return res.status(400).json({  errors: err.errors });
-    }
-
-   
-  
+    return res.status(400).json({ errors: err.errors });
+  }
 };
 
 // Get all projects
@@ -47,7 +42,7 @@ export const getProjectById = async (req, res) => {
   }
 };
 
-
+// Update project
 export const updateProject = async (req, res) => {
   const { id } = req.params;
 
@@ -56,17 +51,17 @@ export const updateProject = async (req, res) => {
   }
 
   try {
-    const updated = await Project.findByIdAndUpdate(id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const updated = await Project.findByIdAndUpdate(
+      id,
+      { ...req.body }, // ✅ update with whatever fields are in body (title, desc, imageUrl)
+      { new: true, runValidators: true }
+    );
 
     if (!updated) return res.status(404).json({ message: 'Project not found' });
 
     return res.status(200).json({ message: 'Project updated', project: updated });
   } catch (err) {
-   res.status(400).json({ errors: err.errors });
-    return res.status(500).json({ message: 'Error updating project', error: err.message });
+    return res.status(400).json({ errors: err.errors, message: err.message });
   }
 };
 

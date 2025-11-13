@@ -12,6 +12,9 @@ import authRoutes from "./routes/authRoutes.js";
 import shareRoutes from "./routes/shareRoute.js";
 import chatRoute from "./routes/chatRoutes.js"; 
 import messageRouter from "./routes/messageRoute.js";
+import guideRouter from "./routes/guideRoutes.js";
+import bookingRouter from "./routes/bookingRoutes.js";
+import postrouter from "./routes/postRoutes.js";
 
 
 dotenv.config();
@@ -19,13 +22,13 @@ dotenv.config();
 // Initialize express
 const app = express();
 
-// Middleware
-app.use(
-  cors({
-    origin: "http://localhost:5173", // no trailing slash here
-    credentials: true,
-  })
-);
+
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+}));
 app.use(express.json());
 
 
@@ -36,6 +39,9 @@ app.use("/api", projectRoutes);
 app.use("/api/live-location", shareRoutes);
 app.use("/api/ai", chatRoute);
 app.use("/api/messages", messageRouter);
+app.use("/api/guide", guideRouter);
+app.use("/api/booking", bookingRouter);
+app.use("/api/posts", postrouter);
 
 
 // Connect MongoDB

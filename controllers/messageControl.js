@@ -1,6 +1,6 @@
 import axios from "axios";
 import openai from "../config/openai.js";
-import Chat from "../models/chat.js";
+import Chat from "../models/post.js";
 import User from "../models/Users.js";
 import mongoose from "mongoose";
 
