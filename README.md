@@ -1,86 +1,98 @@
-# Heritage and Culture Backend
+# Project Title
 
-This project is a Node.js/Express backend for user authentication, file uploads (images/videos), project management, and geolocation services.
+Short one-line project description.
 
-## Features
+## Table of Contents
 
-- **Register**: Create a new user account with OTP email verification.
-- **Login**: Authenticate users with JWT and OTP.
-- **Upload**: Upload images and videos to ImageKit cloud storage.
-- **Project Management**: Create, update, delete, and fetch projects.
-- **Geolocation**: (Planned) Enable location services for users.
+- [Description](#description)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Development](#development)
+- [Testing](#testing)
+- [Folder Structure](#folder-structure)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-## API Endpoints
+## Description
 
-### 1. Register
+A brief overview of what this project does, its goals, and main features.
 
-- **URL:** `/api/auth/register`
-- **Method:** `POST`
-- **Description:** Registers a new user and sends OTP to email.
-- **Body Parameters:**
-  - `name`: string
-  - `email`: string
-  - `password`: string
+## Prerequisites
 
-### 2. Login
+List required software and versions, for example:
+- Node.js >= 14
+- npm or yarn
+- Any other services (e.g., MongoDB, Redis)
 
-- **URL:** `/api/auth/login`
-- **Method:** `POST`
-- **Description:** Authenticates a user and verifies OTP.
-- **Body Parameters:**
-  - `email`: string
-  - `password`: string
-  - `otp`: string
+## Installation
 
-### 3. Upload Image
-
-- **URL:** `/api/data/uploadimage`
-- **Method:** `POST`
-- **Description:** Uploads an image file.
-- **Body Parameters:**
-  - `image`: multipart/form-data
-
-### 4. Upload Video
-
-- **URL:** `/api/data/uploadvideo`
-- **Method:** `POST`
-- **Description:** Uploads a video file.
-- **Body Parameters:**
-  - `video`: multipart/form-data
-
-### 5. Fetch Cloud Media
-
-- **URL:** `/api/data/fetch`
-- **Method:** `GET`
-- **Description:** Fetches uploaded media files.
-- **Query Parameters:**
-  - `type`: `image` | `video` | `all` (default: `image`)
-  - `limit`: number (default: 10)
-
-### 6. Upload project title and description 
- - **URL:** `/api/project/create-project`
-- **Method:** `POST`
-- **Description:** Upload project title and description
-
-
-## Getting Started
-
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/satyamgautam22/heritageandculture
-    cd heritage-and-culture-backend
-    ```
+Steps to get the project running locally:
+1. Clone the repo:
+   git clone <repository-url>
 2. Install dependencies:
-    ```bash
-    npm install
-    ```
-3. Create a `.env` file with your environment variables (MongoDB URI, JWT secret, SMTP, ImageKit keys,Map key ,Happyface ai).
-4. Start the server:
-    ```bash
-    npm run dev
-    ```
+   cd Server
+   npm install
+   or
+   yarn install
+
+## Usage
+
+How to start the app:
+- Development:
+  npm run dev
+  or
+  yarn dev
+- Production:
+  npm start
+  or
+  yarn start
+
+Examples of common commands and how to call the app (API endpoints or UI entry points).
+
+## Configuration
+
+Describe environment variables or config files required. Example:
+- .env
+  - PORT=3000
+  - DATABASE_URL=...
+
+## Development
+
+Notes for developers:
+- Code style / linters (ESLint, Prettier)
+- How to run type checks or formatters
+- How to add a new feature branch and run locally
+
+## Testing
+
+How to run tests:
+- npm test
+- or specific test commands and coverage instructions.
+
+## Folder Structure
+
+A brief overview of important folders:
+- src/ — application source code
+- routes/ — HTTP routes (if applicable)
+- controllers/ — request handlers
+- models/ — data models
+- tests/ — test suites
+- config/ — configuration files
+
+## Contributing
+
+Short guidelines:
+- Open issues for bugs or feature requests
+- Fork, create a branch, add tests, submit a PR
+- Follow commit message and PR conventions
 
 ## License
 
-This project is licensed under the MIT License."heritageandculture" 
-"# Heritage-and-culture" 
+State the license, e.g. MIT. Replace with actual license as needed.
+
+## Contact
+
+Provide maintainer or project contact info for questions or support.
