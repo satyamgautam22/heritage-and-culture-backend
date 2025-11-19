@@ -14,3 +14,4 @@ build/
 
 # Ignore log files
 *.log
+"desktop.ini" 
