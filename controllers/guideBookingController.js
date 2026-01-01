@@ -4,7 +4,9 @@ import stripe from "../config/stripe.js"
 export const createBooking = async (req, res) => {
   try {
     const { name, email, mobile, location, date, time, budget } = req.body;
-    const userId = req.userId || req.body.userId; // <-- prefer token
+    const userId = req.userId || req.body.userId;
+    const guideId = req.guideId || req.body.guideId;
+     // <-- prefer token
 
     if (!name || !email || !mobile || !location || !date || !time || !budget) {
       return res.status(400).json({ message: "Please fill all details" });
@@ -25,7 +27,8 @@ export const createBooking = async (req, res) => {
       date,
       time,
       budget,
-      userId,                      // <-- now comes from auth by default
+      userId,   
+      guideId,                   // <-- now comes from auth by default
       paymentStatus: "pending",
     });
 
@@ -33,7 +36,10 @@ export const createBooking = async (req, res) => {
     return res.status(201).json({
       message: "Booking created successfully",
       booking: savedBooking,
+      bookingId: savedBooking._id,
     });
+   
+
   } catch (err) {
     console.error(err);
     return res.status(500).json({
@@ -152,3 +158,5 @@ export const verifyPayment = async (req, res) => {
     res.status(500).json({ message: "Error verifying payment" });
   }
 };
+
+

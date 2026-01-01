@@ -1,10 +1,13 @@
 import Guide from "../models/guide.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 //registeration 
 export const register =async(req,res)=>{
 try{
-    const{name,email,password ,location, gender,age,languages,experience}=req.body;
+    const{name,email,password ,location, gender,age,languages,experience}= req.body;
+    console.log(req.body);
+    
     if(!name || !email || !password  || !location || !gender|| !age || !languages || !experience){
         return res.status(400).json({message:"All fields are required"});
     }
@@ -50,7 +53,21 @@ export const login =async(req,res)=>{
        if (!isMatch) {
            return res.status(401).json({ message: "Invalid credentials" });
        }
-        res.status(200).json({ message: "Login successful" });
+       const token = jwt.sign(
+      { id: guide._id, role: "guide" },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+        res.status(200).json({
+            message: "Guide registered successfully",
+            guideId: guide._id,
+            token
+});
+
+          
+          
+       
     } catch (error) {
         res.status(500).json({ message: "Server error" + error.message });
     }

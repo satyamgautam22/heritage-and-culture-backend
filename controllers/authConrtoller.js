@@ -41,17 +41,23 @@ export const login = async (req, res) => {
       await user.save();
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "3h" });
+    // ✅ FIXED TOKEN
+    const token = jwt.sign(
+      {
+        id: user._id.toString(),
+        role: "user"
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "3h" }
+    );
 
-    // Return both token and user (so frontend can store userId)
     return res.json({
       message: "Login successful",
       token,
       user: {
         _id: user._id,
-        name: user.name,
-        email: user.email,
-      },
+        role: "user"
+      }
     });
   } catch (err) {
     console.error(err);

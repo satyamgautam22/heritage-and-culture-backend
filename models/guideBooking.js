@@ -9,9 +9,9 @@ const guideBookingSchema = new mongoose.Schema({
     location:{type:String},
     date:{type:Date},
     time:{type:String},
-    guideId:{type:mongoose.Schema.Types.ObjectId, ref:"Guide"},
-    userId:{type:mongoose.Schema.Types.ObjectId, ref:"User"},
-     paymentStatus: { type: String, default: "pending" },
+    guideId:{type:mongoose.Schema.Types.ObjectId, ref:"Guide", required:true},
+    userId:{type:mongoose.Schema.Types.ObjectId, ref:"User",required:true},
+    paymentStatus: { type: String, default: "pending" },
 }, {timestamps:true});
 
 
