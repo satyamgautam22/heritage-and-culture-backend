@@ -6,19 +6,13 @@ const chatSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: true
-      }
+        required: true,
+      },
     ],
-    lastMessage: {
-      type: String,
-      default: "null"
-    }
+    lastMessage: String,
   },
   { timestamps: true }
 );
 
-const Chat = mongoose.model("Chat", chatSchema);
-
-
-
-export default Chat
+export default mongoose.models.Chat ||
+  mongoose.model("Chat", chatSchema);

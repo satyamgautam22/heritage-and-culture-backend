@@ -1,11 +1,10 @@
-// controllers/authController.js (or wherever this lives)
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/Users.js";
 import dotenv from "dotenv";
 dotenv.config();
 
-// REGISTER (unchanged – optional to also return user)
+// REGISTER 
 export const register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -25,7 +24,7 @@ export const register = async (req, res) => {
   }
 };
 
-// LOGIN (updated to return user as well)
+// LOGIN 
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -41,7 +40,7 @@ export const login = async (req, res) => {
       await user.save();
     }
 
-    // ✅ FIXED TOKEN
+   
     const token = jwt.sign(
       {
         id: user._id.toString(),
@@ -62,5 +61,28 @@ export const login = async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const logout = async (req, res) => {
+  try {
+    return res.json({ message: "Logout successful" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Server error" });
+  } 
+};
+
+//GET ALL USERS
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find(
+      { _id: { $ne: req.user.id } },
+      "_id name email"             
+    ).sort({ name: 1 });
+
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch users" });
   }
 };

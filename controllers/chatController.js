@@ -1,48 +1,31 @@
+import mongoose from "mongoose";
 import Chat from "../models/chat.js";
-import GuideBooking from "../models/guideBooking.js";
 
-// create chat using guide booking
-export const createChat = async (req, res) => {
+export const getOrCreateChat = async (req, res) => {
   try {
-    const userId = req.user.id;            // from JWT
-    const bookingId = req.params.bookingId;      // from URL
+    const myId = req.user._id || req.user.id;
+    const otherId = req.params.userId;
 
-    // 1️⃣ find booking
-    const booking = await GuideBooking.findById(bookingId);
-
-    if (!booking) {
-      return res.status(404).json({ error: "Booking not found" });
+    if (
+      !mongoose.Types.ObjectId.isValid(myId) ||
+      !mongoose.Types.ObjectId.isValid(otherId)
+    ) {
+      return res.status(400).json({ message: "Invalid user id" });
     }
 
-    // 2️⃣ ensure logged-in user owns this booking
-    if (booking.userId.toString() !== userId) {
-      return res.status(403).json({ error: "Unauthorized access" });
-    }
-
-    // 3️⃣ ensure guide is assigned
-    if (!booking.guideId) {
-      return res.status(400).json({ error: "Guide not assigned yet" });
-    }
-
-    const guideId = booking.guideId;
-
-    // 4️⃣ check existing chat
     let chat = await Chat.findOne({
-      participants: { $all: [userId, guideId] }
+      participants: { $all: [myId, otherId] },
     });
 
-    if (chat) {
-      return res.status(200).json(chat);
+    if (!chat) {
+      chat = await Chat.create({
+        participants: [myId, otherId],
+      });
     }
 
-    // 5️⃣ create new chat
-    chat = await Chat.create({
-      participants: [userId, guideId]
-    });
-
-    return res.status(201).json(chat);
-
+    return res.json(chat); // MUST return _id
   } catch (err) {
-    return res.status(500).json({ error: err.message });
+    console.error(err);
+    return res.status(500).json({ message: "Chat error" });
   }
 };

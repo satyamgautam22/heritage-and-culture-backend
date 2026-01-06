@@ -14,7 +14,7 @@ import chatRoute from "./routes/chatRoutes.js";
 import guideRouter from "./routes/guideRoutes.js";
 import bookingRouter from "./routes/bookingRoutes.js";
 import postrouter from "./routes/postRoutes.js";
-import Message from "./models/Message.js";
+import messageRouter from "./routes/messageRoutes.js";
 import { initSocket } from "./config/socket.js";
 
 
@@ -27,7 +27,7 @@ const app = express();
 app.use(cors({
   origin: "http://localhost:5173",
   credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"],
+ 
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 }));
 
@@ -43,6 +43,7 @@ app.use("/api/guide", guideRouter);
 app.use("/api/booking", bookingRouter);
 app.use("/api/posts", postrouter);
 app.use("/api/chat", chatRoute);
+app.use("/api/messages", messageRouter);
 
 // Connect MongoDB
 await connectDB();
